@@ -61,16 +61,7 @@ class SignInActivity : AppCompatActivity() {
                 showToast(user)
                 showLogs(user)
             } else {
-                Log.e("Logs",
-                      "The user is not found")
-                if (response == null)
-                    Log.e("Logs",
-                          "The user canceled the sign-in flow " +
-                               "using the back button")
-                else
-                    Log.e("Logs",
-                          "Authorization is failed with error: " +
-                               "${response.error?.errorCode}")
+                processErrors(response)
             }
         }
     }
@@ -95,5 +86,18 @@ class SignInActivity : AppCompatActivity() {
               "The user's phone number is: ${user?.phoneNumber}")
         Log.d("Logs",
               "The user's provider id is: ${user?.providerId}")
+    }
+
+    private fun processErrors(response: IdpResponse?) {
+        Log.e("Logs",
+              "The user is not found")
+        if (response == null)
+            Log.e("Logs",
+                  "The user canceled the sign-in flow " +
+                       "using the back button")
+        else
+            Log.e("Logs",
+                  "Authorization is failed with error: " +
+                       "${response.error?.errorCode}")
     }
 }
