@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.firebase.Constants.FB_UI_SIGN_IN
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -18,7 +19,6 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var authIntent: Intent
     private lateinit var resetIntent: Intent
     private lateinit var searchIntent: Intent
-    private val FB_UI_SIGN_IN: Int = 131
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

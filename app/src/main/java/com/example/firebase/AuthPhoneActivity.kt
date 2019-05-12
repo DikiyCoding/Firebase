@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.firebase.Constants.SMS_CODE
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +18,6 @@ import java.util.concurrent.TimeUnit
 
 class AuthPhoneActivity : AppCompatActivity() {
 
-    private lateinit var code: String
     private lateinit var storedVerificationId: String
 
     private lateinit var auth: FirebaseAuth
@@ -31,7 +31,6 @@ class AuthPhoneActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        code = "313518"
         auth = FirebaseAuth.getInstance()
         auth.setLanguageCode("ru")
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -54,7 +53,7 @@ class AuthPhoneActivity : AppCompatActivity() {
                 storedVerificationId = verificationId
                 resendToken = token
                 signInWithPhoneAuthCredential(
-                        getCredential(storedVerificationId, code))
+                        getCredential(storedVerificationId, SMS_CODE))
             }
         }
     }
