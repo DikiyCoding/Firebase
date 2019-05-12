@@ -5,13 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.firebase.Constants.DELAY
 import com.example.firebase.Constants.SMS_CODE
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.*
 import kotlinx.android.synthetic.main.activity_auth_phone.*
 import java.util.concurrent.TimeUnit
@@ -62,14 +60,7 @@ class AuthPhoneActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        val user = task.result?.user
-                        Toast.makeText(
-                            applicationContext,
-                            "name: ${user?.displayName}\n" +
-                            "email: ${user?.email}\n" +
-                            "phone: ${user?.phoneNumber}\n" +
-                            "provider id: ${user?.providerId}\n",
-                            Toast.LENGTH_LONG).show()
+                        showToast(task.result?.user)
                         Log.d("Logs",
                               "Sign in with credential: success")
                     } else {
@@ -82,12 +73,21 @@ class AuthPhoneActivity : AppCompatActivity() {
                     }
                 }
 
+    private fun showToast(user: FirebaseUser?) =
+        Toast.makeText(
+            applicationContext,
+            "name: ${user?.displayName}\n" +
+                 "email: ${user?.email}\n" +
+                 "phone: ${user?.phoneNumber}\n" +
+                 "provider id: ${user?.providerId}\n",
+            Toast.LENGTH_LONG).show()
+
     fun verifyPhoneNumber(view: View) =
         PhoneAuthProvider
             .getInstance()
             .verifyPhoneNumber(
                 et_phone.text.toString(),
-                60,
+                DELAY,
                 TimeUnit.SECONDS,
                 this,
                 callbacks)

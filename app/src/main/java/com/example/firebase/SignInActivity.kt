@@ -11,6 +11,7 @@ import com.example.firebase.Constants.FB_UI_SIGN_IN
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class SignInActivity : AppCompatActivity() {
 
@@ -57,23 +58,8 @@ class SignInActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
                 val user = auth.currentUser
-                Toast.makeText(
-                    applicationContext,
-                    "name: ${user?.displayName}\n" +
-                    "email: ${user?.email}\n" +
-                    "phone: ${user?.phoneNumber}\n" +
-                    "provider id: ${user?.providerId}\n",
-                    Toast.LENGTH_LONG).show()
-                Log.d("Logs",
-                      "The user is found")
-                Log.d("Logs",
-                      "The user's name is: ${user?.displayName}")
-                Log.d("Logs",
-                      "The user's email is: ${user?.email}")
-                Log.d("Logs",
-                      "The user's phone number is: ${user?.phoneNumber}")
-                Log.d("Logs",
-                      "The user's provider id is: ${user?.providerId}")
+                showToast(user)
+                showLogs(user)
             } else {
                 Log.e("Logs",
                       "The user is not found")
@@ -87,5 +73,27 @@ class SignInActivity : AppCompatActivity() {
                                "${response.error?.errorCode}")
             }
         }
+    }
+
+    private fun showToast(user: FirebaseUser?) =
+        Toast.makeText(
+            applicationContext,
+                "name: ${user?.displayName}\n" +
+                     "email: ${user?.email}\n" +
+                     "phone: ${user?.phoneNumber}\n" +
+                     "provider id: ${user?.providerId}\n",
+            Toast.LENGTH_LONG).show()
+
+    private fun showLogs(user: FirebaseUser?) {
+        Log.d("Logs",
+              "The user is found")
+        Log.d("Logs",
+              "The user's name is: ${user?.displayName}")
+        Log.d("Logs",
+              "The user's email is: ${user?.email}")
+        Log.d("Logs",
+              "The user's phone number is: ${user?.phoneNumber}")
+        Log.d("Logs",
+              "The user's provider id is: ${user?.providerId}")
     }
 }
