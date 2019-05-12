@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Firebase</string>
+    <string name="title_email_hint">Your Email</string>
+    <string name="title_phone_number_hint">Your Phone Number</string>
+    <string name="title_phone_number_auth_custom">Phone Auth Custom</string>
+    <string name="title_phone_number_auth_firebase">Phone Auth Firebase</string>
+    <string name="title_phone_number_confirm">Сonfirm Your Phone Number</string>
+    <string name="title_password_reset">Reset Password</string>
+    <string name="title_search">Search</string>
 </resources>
